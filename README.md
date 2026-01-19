@@ -27,20 +27,20 @@ The goal is **engineering-grade AI**, not black-box generation.
 
 ## 🧠 Core Capabilities
 
-* **Intent-based design input** (mission, constraints, materials)
-* **Parametric geometry generation** (robot frames, wings, structures)
-* **Physics-aware evaluation**
-
-  * Dynamics
-  * Structural loads
-  * Stability & control
-* **AI-driven optimization**
-
-  * Evolutionary algorithms
-  * Surrogate models
+* **Cloud-native, web-based CAD environment**
+* **Integrated physics simulation** (design-time and batch)
+* **AI-assisted design guidance** (optimization, suggestions, validation)
+* **Parametric and constraint-driven geometry**
+* **Vehicle and system capability testing** (performance, stability, margins)
+* **Asynchronous cloud simulation jobs**
 * **Manufacturing-aware outputs**
 
   * CAD export (STEP)
+
+  * Simulation and validation reports
+
+  * CAD export (STEP)
+
   * Simulation reports
 
 ---
@@ -73,6 +73,20 @@ This staged approach ensures technical depth before expanding to more complex ae
 ## 🏗️ System Architecture (High-Level)
 
 ```
+Web Browser (CAD UI)
+        ↓
+API Layer (Cloud)
+        ↓
+Design Logic & Constraints (Python)
+        ↓
+Physics Simulation + AI Optimization
+        ↓
+Asynchronous Results & Guidance
+```
+
+Heavy computation (simulation, optimization, AI training) is executed **in the cloud**, while the browser is responsible for interaction and visualization only.
+
+```
 User Intent
    ↓
 Design Space Generator
@@ -90,24 +104,36 @@ The system prioritizes **correctness, explainability, and physical validity** ov
 
 ## 🧩 Tech Stack
 
-### Primary Language
+### Core Language
 
-* **Python** — AI, optimization, simulation orchestration
+* **Python** — primary language for design logic, physics orchestration, AI optimization, and backend services
+
+### Frontend (Web CAD Interface)
+
+* **TypeScript**
+* **React**
+* **WebGL / Three.js** for geometry visualization
 
 ### Performance-Critical Components
 
-* **C++** — physics kernels and geometry processing (via bindings)
+* **C++** — physics solvers and geometry kernels (exposed to Python via bindings)
 
-### Key Libraries (Planned)
+### AI & Optimization
 
-* Optimization: SciPy, DEAP, Nevergrad
-* Simulation: PyBullet, MuJoCo (early), custom solvers
-* CAD: FreeCAD / OCC / Fusion 360 API
-* ML: PyTorch / JAX
+* Optimization algorithms (genetic algorithms, Bayesian optimization)
+* Physics-informed heuristics and constraints
+* ML frameworks: PyTorch / JAX (used, not reimplemented)
+* Optional LLM integration for explanations and design assistance
+
+### Backend & Cloud
+
+* **FastAPI** — API layer
+* Job orchestration (e.g., Celery / Ray)
+* Containerized compute (Docker; scalable to Kubernetes)
 
 ### IDE
 
-* **VS Code** (Python + C++ development)
+* **VS Code** (Python, TypeScript, and C++ development)
 
 ---
 
@@ -129,9 +155,22 @@ ai-design-platform/
 
 ## 📊 Design Philosophy
 
+* **Physics-first**: AI augments decisions, never overrides physical laws
+
+* **Cloud-first**: Scalable compute and collaboration by default
+
+* **Human-in-the-loop**: Engineers remain in control
+
+* **Modular & extensible**: Supports many engineering domains
+
+* **No black boxes**: Results are explainable and traceable
+
 * **Physics-first**: AI never overrides physical laws
+
 * **Modular**: Each subsystem can evolve independently
+
 * **Transparent**: Results are explainable, not opaque
+
 * **Scalable**: Starts simple, grows toward aerospace-grade complexity
 
 ---
